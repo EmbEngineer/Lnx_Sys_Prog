@@ -1,0 +1,25 @@
+#! /bin/bash
+
+  if ( make -C vender/Adder )
+   then 
+     echo "Adder build successful"
+   else
+     echo "Adder build failled"
+   fi
+
+
+   if ( make -C server )
+   then 
+     echo "server build successful"
+   else
+     echo "server build failled"
+   fi 
+
+   if ( gcc -o rc_one ./client/main.c)
+   then 
+     echo "client build successful"
+   else
+     echo "client build failled"
+   fi 
+
+   ./server/run
