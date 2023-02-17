@@ -1,0 +1,10 @@
+#! /bin/bash
+
+./reqDvdrClnt&
+./reqSubtrClnt&
+./reqMultiClnt&
+./reqAdsnClnt
+#./reqDvdrClnt&
+#./reqSubtrClnt&
+#./reqMultiClnt&
+#./reqAdsnClnt

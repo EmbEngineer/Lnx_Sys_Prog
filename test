@@ -1,0 +1,152 @@
+#! /bin/bash
+
+mainMenu()
+{
+	echo
+        echo "__MAIN_MENU__"
+        echo "1: Build Server"
+        echo "2: Build Vender"
+        echo "3: Build Requesting Client"
+        echo "4: unlink FIFO"
+        echo "5: Run Server"
+        echo "0: Exit Script"
+        echo "please Enter your choise.........!!"
+        read resp
+        case $resp in
+                1)
+			buildServer
+                        ;;
+                2)
+			buildVenders
+                        ;;
+                3)
+			buildClient
+                        ;;
+                4)
+			unlinkfifo
+                        ;;
+                5)
+			runserver
+                        ;;
+                0)
+                        exit 0
+          esac
+}
+
+runserver()
+{
+       ./server
+}
+
+unlinkfifo()
+{
+	unlink servfifo
+}
+
+buildServer()
+{
+	#echo
+	#read -n1 -p "Do you want to build server?"
+	echo
+	#if [ $REPLY = 'y' ] 
+	#then
+		if ( make -C ./Server )
+		then	
+			echo "SERVER BUILD SUCCESSFULLY"
+			mv ./Server/server .
+		else
+			echo "SERVER BUILD FAILED!!"
+			read
+		fi
+	#fi
+}
+buildClient()
+{
+	echo
+	#read -n1 -p "Do you want to build Requesting client?"
+	#if [ $REPLY = 'y' ] 
+	#then
+		if ( gcc -o reqAdsnClnt ./Client/reqAdsnClnt.c )
+		then	
+			echo
+		else
+			echo "Adder Req client FAILED!!"
+			read
+		fi
+		
+		if ( gcc -o reqSubtrClnt ./Client/reqSubtrClnt.c )
+		then	
+			echo
+		else
+			echo "Subtractor Req client FAILED!!"
+			read
+		fi
+		
+		if ( gcc -o reqMultiClnt ./Client/reqMultiClnt.c )
+		then	
+			echo
+		else
+			echo "Multipication Req client FAILED!!"
+			read
+		fi
+		
+		if ( gcc -o reqDvdrClnt ./Client/reqDvdrClnt.c )
+		then	
+			echo
+		else
+			echo "Devision Req client  FAILED!!"
+			read
+		fi
+		echo "ALL Req CLIENT BUILD SUCCESSFULLY"
+	#fi
+}
+buildVenders()
+{
+	echo
+	#read -n1 -p "Do you want to build Vendors?"
+	#if [ $REPLY = 'y' ] 
+	#then
+		if (make -C ./Vender/Adder)
+		then	
+			echo
+			mv  ./Vender/Adder/adder    .
+		else
+			echo "Adder BUILD FAILED!!"
+			read
+		fi
+		
+		if ( make -C ./Vender/Subtraction)
+		then	
+			echo
+			mv  ./Vender/Subtraction/subtr    .
+		else
+			echo "Subtractor BUILD FAILED!!"
+			read
+		fi
+
+		if ( make -C ./Vender/Multiplication)
+		then	
+			echo
+			mv  ./Vender/Multiplication/multi     .
+		else
+			echo "Multiplier BUILD FAILED!!"
+			read
+		fi
+		
+		if ( make -C ./Vender/Divied)
+		then	
+			echo
+			mv  ./Vender/Divied/dvdr    .
+		else
+			echo "Devieder BUILD FAILED!!"
+			read
+		fi
+		echo "ALL Vender Build Successfully!!"
+
+	#fi
+}
+
+while true
+do
+        mainMenu
+done
